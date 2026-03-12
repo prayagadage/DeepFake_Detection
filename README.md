@@ -1,156 +1,223 @@
-# DeepFake_Detection
-## Table of Contents:
-- What is DeepFake?
-- Demo of the Project
-- Impact of DeepFake Videos
-- Project Objectives
-- Project Pipeline
-  - Pre-processing WorkFlow
-  - Prediction WorkFlow
-- Models Usage and their Architecture
-- Deploy
-  - Code Running Commands
-- Technologies Used
-- Conclusion
-- Team
+<h1 align="center">🔍 DeepFake Detection</h1>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white"/>
+  <img src="https://img.shields.io/badge/OpenCV-27338e?style=for-the-badge&logo=OpenCV&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Accuracy-~85%25-success?style=for-the-badge"/>
+</p>
 
-## What is DeepFake?
-- DeepFakes are images or videos which have been altered to feature the face of
-someone else, like an advanced form of Face Swapping, using an AI DeepFake
-Converter.
-- Many Deep Fakes are done by superimposing or combining existing images into source
-images and videos using Generative Adversarial Networks (GAN) and these networks
-are developing better every day
+<p align="center">
+  A deep learning system to detect DeepFake videos using a hybrid <strong>CNN + RNN</strong> architecture — extracting spatial face features frame-by-frame and classifying videos as <strong>REAL</strong> or <strong>FAKE</strong> with ~85% accuracy.
+</p>
 
-## Demo of the Project
-Link : https://www.youtube.com/watch?v=wy8mVnBZ6pY&ab_channel=BalajiKartheek
+---
 
-## Impact of DeepFake Videos
-- DeepFakes can be used to create fake news, celebrity unusual videos, politician
-content videos, and financial fraud.
-- False Rumours can be spread using DeepFake videos which causes unrest and
-mental anxiety among people.
-- Many fields in Film Industry, content providers, and social media platforms are
-fighting against DeepFake.
- 
- # Project Objectives:
- 
-Identification of deepfakes is necessary to prevent the use of malicious AI.
-We intend to,
--  Build a model that processes the given video and classifies it as REAL or FAKE.
--  Dploy a feature in the social media apps that can detect and give a warning to
-the content provider who is willing to do viral by uploading deepFaked images or
-videos.
+## 📚 Table of Contents
 
-![image](https://user-images.githubusercontent.com/77656115/206965843-6ac74168-3e31-43d6-9bbf-3e3d25e17522.png)
+- [What is DeepFake?](#-what-is-deepfake)
+- [Impact of DeepFakes](#-impact-of-deepfakes)
+- [Project Objectives](#-project-objectives)
+- [Project Pipeline](#-project-pipeline)
+- [Workflow](#-workflow)
+- [Models & Architecture](#-models--architecture)
+- [Getting Started](#-getting-started)
+- [Technologies Used](#-technologies-used)
+- [Conclusion](#-conclusion)
 
-### Goal:
-To Crate a deep learning model that is capable of recognizing deepfake images. A
-thorough analysis of deepfake video frames to identify slight imperfections in the face
-head and the model will learn what features differentiate a real image from a deepfake.
+---
 
-![image](https://user-images.githubusercontent.com/77656115/206965890-a1c345cf-8ae9-49f7-b498-ae4c7168666a.png)
+## 🤔 What is DeepFake?
 
-### Project Pipeline
+DeepFakes are synthetic media — images or videos manipulated using AI to replace a person's likeness with someone else's. They are typically generated using **Generative Adversarial Networks (GANs)**, which are becoming more sophisticated and harder to detect over time.
 
-| Steps | Dscription |
-| --- | --- |
-| Step1 |    Loading the datasets |
-| Step2 | Extracting videos from the dataset |
-| Step3  | Extract all frames in the video for both real and fake |
-| Step4 | Recognize the face subframe |
-| Step5 |Locating the facial landmarks |
-| Step6 |Frame-by-frame analysis to address any changes in the face landmarks |
-| Step7 | To Classify the video either as REAL or Fake.|
+> *"As DeepFake technology improves, so must our ability to detect it."*
 
+---
 
-## General WorkFlow:
-### Pre-processing:
-![image](https://user-images.githubusercontent.com/77656115/206968030-1e9729e7-8d34-4295-a110-d05ad0ade7bb.png)
+## ⚠️ Impact of DeepFakes
 
-### Prediction WorkFlow:
-![image](https://user-images.githubusercontent.com/77656115/206968272-73db6238-79a0-46a1-ad5b-e651ad002322.png)
+- 📰 **Misinformation** — Fake news, misleading political content, fabricated celebrity videos
+- 💸 **Financial Fraud** — Impersonation of executives to authorize fraudulent transactions
+- 😰 **Mental Harm** — False rumours causing unrest and psychological distress
+- 🎬 **Industry Threat** — Film, media, and social platforms are actively combating DeepFakes
 
-# Models Usage: 
-### Models with CNN Architecture
+---
 
-Implemented the following models with CNN architecture
-**MesoNet**
-- This model is pre-trained to detect deepfake images, but it is bad at detecting Fake 
-video frames
-**ResNet50v**
-- This model is trained using dee fake images cropped from the videos with preset 
-weights of imagenet dataset
-**EfficientNetB0**
-- This model is also trained using deepfake images cropped from the videos with 
-preset weights of imagenet dataset
+## 🎯 Project Objectives
 
-### Models with CNN + Seqential Architecture
-**InceptionV3(CNN Model) + GRU(sequential)**
+1. **Detect** whether a given video is **REAL or FAKE** using deep learning
+2. **Analyze** video frames to identify subtle facial imperfections introduced by DeepFake algorithms
+3. **Deploy** a usable web application that accepts video uploads and returns predictions in real-time
 
--  This model works well because of both CNN and Sequential architecture.
-- Test Accuracy is approx. 82%
-- For Each Frame in the Video, it will generate the feature Vectors
-- HyperParameters used: 
-- Optimizer: Adam ( Adam Works fine as it changes the Learning Rate over time )
-- Metric as Accuracy
-- loss as sparse_categorical_crossentropy (loss function when there are two or more 
-label classes )
-- Among all the Optimizers Adam is Working Well.
-- The accuracy of the model increases as the epochs are increasing.
+> **Goal:** Build a robust model that learns the distinguishing features between authentic and face-swapped DeepFake frames.
 
-**Limitations**
-This model doesn’t work well when there are multiple faces in the Video, as it needs to 
-detect the multiple faces in each Frame.
+---
 
-**EfficientNetB2(CNN Model) + GRU(sequential)**
+## 🔄 Project Pipeline
 
-- This model works well because of both CNN and Sequential architecture
-- Test Accuracy is approx. 85%
-- For Each Frame in the Video, it will generate the feature Vectors
-- HyperParameters used: 
-- Optimizer: Adam ( Adam Works fine as it changes the Learning Rate over time )
-- Metric as Accuracy
-- loss as sparse_categorical_crossentropy (loss function when there are two or more 
-label classes )
-- Among all the Optimizers Adam is Working Fine.
-- The accuracy of the model increases as the epochs are increasing.
-**Limitations**
-- This model doesn’t work well when there is dark background in the video frames. As it is 
-difficult to detect the faces in the Video Frame.
+| Step | Description |
+|------|-------------|
+| **1** | 📂 Load the dataset (DFDC / FaceForensics++) |
+| **2** | 🎬 Extract individual video clips |
+| **3** | 🖼️ Extract all frames from each video (real & fake) |
+| **4** | 👤 Detect and crop the face sub-frame from each image |
+| **5** | 📍 Locate facial landmarks using Dlib |
+| **6** | 📊 Perform frame-by-frame analysis for changes in facial landmarks |
+| **7** | ✅ Classify the video as **REAL** or **FAKE** |
 
-## Running Code
-- Combination of CNN and RNN model is used to detect Fake Videos. We achieved a test accuracy ~85% on sample DFDC dataset
-- To run this code first run this command.
-```bash
-  pip install -r requirements.txt
+---
+
+## 🔧 Workflow
+
+### Pre-Processing
+
+```
+Raw Video
+   ↓
+Frame Extraction
+   ↓
+Face Detection (Dlib / OpenCV)
+   ↓
+Face Cropping & Landmark Detection
+   ↓
+Normalized Image Frames → Model Input
 ```
 
-**Run main.py file in deploy folder**
-```bash
-  python main.py
+### Prediction
+
 ```
-*Make sure the required packages are installed, and it is preferred to run on GPU. The results are given in about a minute for a 10 second 30fps video.*
+Video Upload
+   ↓
+Frame-by-Frame Feature Extraction (CNN)
+   ↓
+Temporal Sequence Modelling (GRU / RNN)
+   ↓
+Aggregate Predictions Across Frames
+   ↓
+Output: REAL ✅ or FAKE ❌
+```
 
-<h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://opencv.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/opencv/opencv-icon.svg" alt="opencv" width="40" height="40"/> </a> <a href="https://pandas.pydata.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/2ae2a900d2f041da66e950e4d48052658d850630/icons/pandas/pandas-original.svg" alt="pandas" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://scikit-learn.org/" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" alt="scikit_learn" width="40" height="40"/> </a> <a href="https://seaborn.pydata.org/" target="_blank" rel="noreferrer"> <img src="https://seaborn.pydata.org/_images/logo-mark-lightbg.svg" alt="seaborn" width="40" height="40"/> </a> <a href="https://www.tensorflow.org" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg" alt="tensorflow" width="40" height="40"/> </a> </p>
+---
 
-## Conclusion:
+## 🧠 Models & Architecture
 
-- In this project, we have implemented a method for the detection of Deep-Fake videos using the 
-combination of CNN and RNN architecture. We have kept our focus on Face-Swapped Deep-Fake 
-videos.
+### CNN-Only Models
 
-- We primarily experimented only with various pre-trained CNN models like EfficientNet, and 
-ResNet by finding the probability of each video frame being fake and predicting the output based on an aggregate of these probabilities. But the results weren’t satisfactory, so we went forward by combining CNN and RNN models.
+| Model | Notes |
+|-------|-------|
+| **MesoNet** | Pre-trained for DeepFake images; less effective on video frames |
+| **ResNet50V2** | Trained on cropped DeepFake frames with ImageNet weights |
+| **EfficientNetB0** | Trained on cropped video frames with ImageNet pre-training |
 
-- For the CNN + RNN model, the features of face-cropped video frames are extracted using pretrained CNN models and it is passed onto the RNN model which classifies the video as REAL or 
-FAKE. We Experimented with EfficientNet and inception net for the feature extraction part and 
-GRU is used to make the classification. We have obtained a maximum Test Accuracy of ~85% 
-using this approach. Our model has high precision for FAKE videos which is obtained by giving 
-more FAKE videos during the training of the Model.
+> Standalone CNN models showed limited accuracy — combining with sequential models improved performance significantly.
 
+---
 
+### CNN + RNN Hybrid Models ⭐
 
+#### InceptionV3 + GRU
+| Parameter | Value |
+|-----------|-------|
+| **Test Accuracy** | ~82% |
+| **Optimizer** | Adam |
+| **Loss Function** | `sparse_categorical_crossentropy` |
+| **Feature Extractor** | InceptionV3 (per-frame vectors) |
+| **Classifier** | GRU (temporal sequence) |
+| **Limitation** | Struggles with multiple faces per frame |
 
+#### EfficientNetB2 + GRU ✅ *(Best Model)*
+| Parameter | Value |
+|-----------|-------|
+| **Test Accuracy** | ~85% |
+| **Optimizer** | Adam |
+| **Loss Function** | `sparse_categorical_crossentropy` |
+| **Feature Extractor** | EfficientNetB2 (per-frame vectors) |
+| **Classifier** | GRU (temporal sequence) |
+| **Limitation** | Reduced accuracy on low-light / dark background videos |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.8+
+- GPU recommended (CUDA-compatible)
+- pip
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/prayagadage/DeepFake_Detection.git
+cd DeepFake_Detection
+```
+
+```bash
+# Install dependencies
+pip install -r Deploy/requirments.txt
+```
+
+### Running the App
+
+```bash
+# Navigate to the Deploy folder
+cd Deploy
+
+# Start the Flask app
+python app.py
+```
+
+> 💡 **Note:** Results for a 10-second, 30fps video are typically returned within ~1 minute. GPU acceleration is strongly recommended.
+
+Then open your browser and go to `http://localhost:5000` to upload a video and get a prediction.
+
+---
+
+## 🛠️ Technologies Used
+
+<p align="left">
+  <a href="https://www.python.org" target="_blank"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/></a>&nbsp;&nbsp;
+  <a href="https://www.tensorflow.org" target="_blank"><img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg" alt="tensorflow" width="40" height="40"/></a>&nbsp;&nbsp;
+  <a href="https://opencv.org/" target="_blank"><img src="https://www.vectorlogo.zone/logos/opencv/opencv-icon.svg" alt="opencv" width="40" height="40"/></a>&nbsp;&nbsp;
+  <a href="https://pandas.pydata.org/" target="_blank"><img src="https://raw.githubusercontent.com/devicons/devicon/2ae2a900d2f041da66e950e4d48052658d850630/icons/pandas/pandas-original.svg" alt="pandas" width="40" height="40"/></a>&nbsp;&nbsp;
+  <a href="https://scikit-learn.org/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" alt="scikit_learn" width="40" height="40"/></a>&nbsp;&nbsp;
+  <a href="https://seaborn.pydata.org/" target="_blank"><img src="https://seaborn.pydata.org/_images/logo-mark-lightbg.svg" alt="seaborn" width="40" height="40"/></a>&nbsp;&nbsp;
+  <a href="https://www.w3.org/html/" target="_blank"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/></a>&nbsp;&nbsp;
+  <a href="https://www.w3schools.com/css/" target="_blank"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/></a>
+</p>
+
+| Technology | Purpose |
+|------------|---------|
+| **Python** | Core programming language |
+| **TensorFlow / Keras** | Model training and inference |
+| **OpenCV** | Video & frame processing |
+| **Dlib** | Face detection & landmark extraction |
+| **Flask** | Web application backend |
+| **HTML/CSS** | Frontend interface |
+| **Pandas / NumPy** | Data preprocessing |
+
+---
+
+## 📝 Conclusion
+
+This project successfully demonstrates DeepFake video detection using a **hybrid CNN + RNN** approach:
+
+- ✅ **Standalone CNN models** (ResNet, EfficientNet) were tested but showed limited performance on video-level classification
+- ✅ **CNN + GRU models** leverage both spatial (per-frame) and temporal (across frames) features, dramatically improving accuracy
+- ✅ **Best model** — `EfficientNetB2 + GRU` — achieved **~85% test accuracy** on the DFDC sample dataset
+- ✅ The model is optimised for **high precision on FAKE videos**, reducing the risk of DeepFakes slipping through undetected
+
+### Future Improvements
+- 🔄 Multi-face detection support
+- 🌙 Better performance in low-light conditions
+- 📱 Mobile-optimised lightweight model (ONNX / TFLite)
+- 🌐 Real-time browser-based inference
+
+---
+
+<p align="center">
+  Made with ❤️ by <a href="https://github.com/prayagadage"><strong>Prayag Adage</strong></a>
+</p>
